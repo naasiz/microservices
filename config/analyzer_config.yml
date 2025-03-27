@@ -1,0 +1,11 @@
+version: 1
+
+# Kafka Configuration
+events:
+  hostname: kafka
+  port: 29092
+  topic: events
+
+# Analyzer Service Configuration
+service:
+  port: 8110

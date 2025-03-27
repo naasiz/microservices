@@ -1,0 +1,12 @@
+version: 1
+datastore:
+  user: nasi
+  password: "5121381Nz!"
+  hostname: db
+  port: 3306
+  db: lab4
+
+events:
+  hostname: kafka
+  port: 29092
+  topic: events

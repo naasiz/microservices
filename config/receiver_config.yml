@@ -1,0 +1,10 @@
+version: 1
+eventstorequiz:
+  url: http://storage:8090/quiz/create
+eventstorequestion:
+  url: http://storage:8090/questions/create
+
+events:
+  hostname: kafka
+  port: 29092
+  topic: events

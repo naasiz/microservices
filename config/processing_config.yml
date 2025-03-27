@@ -1,0 +1,9 @@
+version: 1
+scheduler: 
+  interval: 5
+
+EVENT_FILE: "statistic.json"
+
+endpoint:
+  url_questions: http://storage:8090/questions
+  url_quiz: http://storage:8090/quiz
