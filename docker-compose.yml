@@ -94,7 +94,7 @@ services:
       - ./config/processing_config.yml:/app/app_conf.yml
       - ./config/log_config.yml:/app/conf_log.yml
       # - ./logs/processing.log:/app/app.log
-      - ./data/processing/statistic.json:/app/statistic.json
+      # - ./data/processing/statistic.json:/app/statistic.json
     networks: 
       - my_network
 
