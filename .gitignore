@@ -175,4 +175,3 @@ cython_debug/
 
 logs/
 data/
-config/*_config.yml
