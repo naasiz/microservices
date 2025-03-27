@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+  title: Online Quiz Platform API
+  description: A simple API to create quizzes and questions
+  contact:
+    email: nastaranzirak717@gmail.com
+  version: 1.0.0
+
+paths:
+  /quiz:
+    get:
+      summary: Get quizzes within a time range
+      description: Retrieves a list of quizzes created within the given timestamps
+      operationId: app.get_quiz 
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Start time for filtering quizzes
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: End time for filtering quizzes
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        "200":
+          description: Successfully returned a list of quizzes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quiz'
+
+  /questions:
+    get:
+      summary: Get questions within a time range
+      description: Retrieves a list of questions added within the given timestamps
+      operationId: app.get_questions
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Start time for filtering questions
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+        - name: end_timestamp
+          in: query
+          description: End time for filtering questions
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2016-08-29T09:12:33.001Z
+      responses:
+        "200":
+          description: Successfully returned a list of questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Question'
+
+components:
+  schemas:
+    Quiz:
+      type: object
+      required:
+        - name
+        - description
+        - time_limit
+        - timestamp
+        - trace_id
+      properties:
+        name:
+          type: string
+          description: The name of the quiz
+          example: test1
+        description:
+          type: string
+          description: The description of the quiz
+          example: quiz one
+        time_limit:
+          type: integer
+          description: The time limit for completing the quiz
+          example: 30
+        timestamp:
+          type: string
+          format: date-time
+          description: The date and time when the quiz was created
+          example: 2025-01-22T10:00:00Z
+        trace_id:
+          type: string
+          format: uuid
+          description: An ID to trace and track errors
+          example: 550e8400-e29b-41d4-a716-446655440000
+
+    Question:
+      type: object
+      required:
+        - exam_id
+        - text
+        - order
+        - correct_answer
+        - score
+        - timestamp
+        - trace_id
+      properties:
+        exam_id:
+          type: integer
+          description: The ID of the quiz the question belongs to
+          example: 1
+        text:
+          type: string
+          description: The text of the question
+          example: "Name an animal that starts with a 'T'."
+        order:
+          type: integer
+          description: The order of the question in the quiz
+          example: 1
+        correct_answer:
+          type: string
+          description: The correct answer to the question
+          example: Turtle
+        score:
+          type: number
+          format: float
+          description: The score of the question
+          example: 0.5
+        timestamp:
+          type: string
+          format: date-time
+          description: The date and time when the question was added
+          example: 2025-01-22T10:05:00Z
+        trace_id:
+          type: string
+          format: uuid
+          description: An ID to trace and track errors
+          example: 550e8400-e29b-41d4-a716-446655440000

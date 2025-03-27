@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: Online Quiz Platform API
+  description: A simple API to create quizzes and questions
+  contact:
+    email: nastaranzirak717@gmail.com
+  version: 1.0.0
+
+paths:
+  /stats:
+    get:
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets quiz and questions processed statistics
+      responses:
+        "200":
+          description: Successfully returned a list of quiz events
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReadingStats"
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    ReadingStats:
+      type: object
+      required:
+        - num_quiz_count
+        - num_questions_count
+        - max_quiz_time_limit
+        - max_questions_score
+      properties:
+        num_quiz_count:
+          type: integer
+          example: 100
+        num_questions_count:
+          type: integer
+          example: 5000
+        max_quiz_time_limit:
+          type: integer
+          example: 180
+        max_questions_score:
+          type: number
+          example: 1

@@ -1,0 +1,116 @@
+openapi: 3.0.0
+info:
+  title: Quiz Analyzer Service API
+  description: API for inspecting Kafka queue messages and generating quiz-related statistics
+  version: "1.0.0"
+
+paths:
+  /quiz-event:
+    get:
+      summary: Retrieve Quiz Event by Index
+      operationId: app.get_quiz_event
+      parameters:
+        - name: index
+          in: query
+          required: true
+          description: Index of the Quiz Event in the Kafka queue
+          schema:
+            type: integer
+            example: 3
+      responses:
+        '200':
+          description: Successfully retrieved the quiz event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizEvent'
+        '404':
+          description: Quiz event not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /question-event:
+    get:
+      summary: Retrieve Question Event by Index
+      operationId: app.get_question_event
+      parameters:
+        - name: index
+          in: query
+          required: true
+          description: Index of the Question Event in the Kafka queue
+          schema:
+            type: integer
+            example: 2
+      responses:
+        '200':
+          description: Successfully retrieved the question event
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionEvent'
+        '404':
+          description: Question event not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /stats:
+    get:
+      summary: Retrieve Quiz and Question Statistics
+      operationId: app.get_event_stats
+      responses:
+        '200':
+          description: Successfully retrieved statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stats'
+
+components:
+  schemas:
+    QuizEvent:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          example: "A quiz covering Python fundamentals."
+
+    QuestionEvent:
+      type: object
+      required:
+        - text
+        - correct_answer
+      properties:
+        text:
+          type: string
+        correct_answer:
+          type: string
+
+          example: "7"
+
+    Stats:
+      type: object
+      required:
+        - num_quizzes
+        - num_questions
+      properties:
+        num_quizzes:
+          type: integer
+          example: 100
+        num_questions:
+          type: integer
+          example: 150
