@@ -16,7 +16,6 @@ COPY . /app
 RUN chown -R nobody:nogroup /app
 RUN mkdir /app/data
 RUN chmod +600 /app/data
-USER nobody
 # Tells on which port the service listens in the container
 EXPOSE 8100
 # Entrypoint = run Python
