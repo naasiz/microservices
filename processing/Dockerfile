@@ -1,6 +1,7 @@
 FROM python:3
 LABEL maintainer="nzirak@my.bcit.ca"
 RUN mkdir /app
+RUN mkdir /app/data
 # We copy just the requirements.txt first to leverage Docker cache
 # on `pip install`
 COPY ./requirements.txt /app/requirements.txt
