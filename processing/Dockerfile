@@ -15,6 +15,7 @@ RUN pip3 install -r requirements.txt
 COPY . /app
 # Change permissions and become a non-privileged user
 RUN chown -R nobody:nogroup /app
+RUN chmod +666 /app/data
 USER nobody
 # Tells on which port the service listens in the container
 EXPOSE 8100
