@@ -15,7 +15,7 @@ COPY . /app
 # Change permissions and become a non-privileged user
 RUN chown -R nobody:nogroup /app
 RUN mkdir /app/data
-RUN chmod +666 /app/data
+RUN chmod +600 /app/data
 USER nobody
 # Tells on which port the service listens in the container
 EXPOSE 8100
