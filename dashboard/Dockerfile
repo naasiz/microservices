@@ -1,8 +1,11 @@
-# Use an official lightweight web server image
+# Use a lightweight Nginx image
 FROM nginx:alpine
 
-# Copy your dashboard files into the nginx html directory
+# Remove the default nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy our dashboard files to the nginx served folder
 COPY . /usr/share/nginx/html
 
-# Expose port 80 to access the web app
+# Expose the default Nginx port
 EXPOSE 80
