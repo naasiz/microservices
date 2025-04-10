@@ -110,6 +110,7 @@ services:
     volumes:
       - ./config/analyzer_config.yml:/app/app_conf.yml
       - ./config/log_config.yml:/app/conf_log.yml
+      - ./data/analyzer:/app/data
       # - ./logs/analyzer.log:/app/app.log
     networks: 
       - my_network
