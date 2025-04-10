@@ -109,7 +109,8 @@ services:
     volumes:
       - ./config/analyzer_config.yml:/app/app_conf.yml
       - ./config/log_config.yml:/app/conf_log.yml
-      - ./data/analyzer:/app 
+      - ./data/analyzer/statistics.json:/app/statistics.json
+
     networks: 
       - my_network
 
