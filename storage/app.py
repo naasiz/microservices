@@ -121,6 +121,34 @@ def get_questions(start_timestamp, end_timestamp):
     logger.info("Found %d questions readings (start: %s, end: %s)", len(results), start, end)
     return results
 
+def get_counts():
+    """Return count of quiz and question events in the database"""
+    session = make_session()
+    quiz_count = session.query(Quiz).count()
+    question_count = session.query(Question).count()
+    session.close()
+    return {
+        "quiz": quiz_count,
+        "question": question_count
+    }, 200
+
+
+def get_ids():
+    """Return all event IDs and trace IDs from both quizzes and questions"""
+    session = make_session()
+
+    quiz_results = session.query(Quiz.id, Quiz.trace_id).all()
+    question_results = session.query(Question.id, Question.trace_id).all()
+    session.close()
+
+    combined = [
+        {"event_id": qid, "trace_id": trace, "type": "quiz"} for qid, trace in quiz_results
+    ] + [
+        {"event_id": qid, "trace_id": trace, "type": "question"} for qid, trace in question_results
+    ]
+
+    return combined, 200
+
 app = connexion.FlaskApp(__name__, specification_dir='')
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
