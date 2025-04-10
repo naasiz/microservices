@@ -58,25 +58,33 @@ def get_question_event(index):
     return get_event(index, "question")
 
 def get_event_stats():
-    if os.path.exists(STATS_FILE):
-        with open(STATS_FILE, 'r') as f:
+    if os.path.exists('statistics.json'):
+        with open('statistics.json', 'r') as f:
             stats = json.load(f)
         return stats, 200
 
-    # If file doesn't exist, then calculate
+    # If file doesn't exist, calculate stats
     quiz_count = 0
     question_count = 0
 
     client = KafkaClient(hosts=KAFKA_HOST)
     topic = client.topics[str.encode(TOPIC_NAME)]
+
     consumer = topic.get_simple_consumer(
         auto_offset_reset=OffsetType.EARLIEST,
         reset_offset_on_start=True,
         consumer_timeout_ms=1000
     )
 
+    messages = []
+    try:
+        for msg in consumer:
+            if msg is not None:
+                messages.append(msg)
+    finally:
+        consumer.stop()  # Properly stop the consumer
 
-    for msg in consumer:
+    for msg in messages:
         message = json.loads(msg.value.decode('utf-8'))
         if message['type'] == "quiz":
             quiz_count += 1
@@ -84,10 +92,11 @@ def get_event_stats():
             question_count += 1
 
     stats = {"num_quizzes": quiz_count, "num_questions": question_count}
-    with open(STATS_FILE, 'w') as f:
+    with open('statistics.json', 'w') as f:
         json.dump(stats, f)
 
     return stats, 200
+
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
