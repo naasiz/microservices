@@ -58,8 +58,8 @@ def get_question_event(index):
     return get_event(index, "question")
 
 def get_event_stats():
-    if os.path.exists('statistics.json'):
-        with open('statistics.json', 'r') as f:
+    if os.path.exists(STATS_FILE):
+        with open(STATS_FILE, 'r') as f:
             stats = json.load(f)
         return stats, 200
 
@@ -79,10 +79,11 @@ def get_event_stats():
             question_count += 1
 
     stats = {"num_quizzes": quiz_count, "num_questions": question_count}
-    with open('statistics.json', 'w') as f:
+    with open(STATS_FILE, 'w') as f:
         json.dump(stats, f)
 
     return stats, 200
+
 
 app = connexion.FlaskApp(__name__, specification_dir='')
 CORS(app.app)
