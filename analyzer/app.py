@@ -69,7 +69,12 @@ def get_event_stats():
 
     client = KafkaClient(hosts=KAFKA_HOST)
     topic = client.topics[str.encode(TOPIC_NAME)]
-    consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
+    consumer = topic.get_simple_consumer(
+        auto_offset_reset=OffsetType.EARLIEST,
+        reset_offset_on_start=True,
+        consumer_timeout_ms=1000
+    )
+
 
     for msg in consumer:
         message = json.loads(msg.value.decode('utf-8'))
