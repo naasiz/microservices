@@ -113,6 +113,14 @@ services:
     networks: 
       - my_network
     
+  dashboard:
+    build:
+      context: ./dashboard
+    ports:
+      - "3000:80"
+    networks:
+      - my_network
+
   
 volumes:
   zookeeper_data:
