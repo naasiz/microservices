@@ -8,6 +8,7 @@ import yaml
 from datetime import datetime
 from apscheduler.schedulers import background
 import httpx
+from flask_cors import CORS
 
 
 with open("conf_log.yml", "r") as f:
@@ -116,6 +117,7 @@ def init_scheduler():
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app) 
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":

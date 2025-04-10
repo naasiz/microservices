@@ -5,6 +5,7 @@ from connexion import NoContent
 from pykafka import KafkaClient
 from pykafka.common import OffsetType
 import yaml
+from flask_cors import CORS
 
 # Load configuration
 with open('app_conf.yml', 'r') as f:
@@ -62,6 +63,7 @@ def get_event_stats():
     return {"num_quizzes": quiz_count, "num_questions": question_count}, 200
 
 app = connexion.FlaskApp(__name__, specification_dir='')
+CORS(app.app)
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 
 if __name__ == "__main__":
