@@ -7,7 +7,7 @@ from connexion import NoContent
 from pykafka import KafkaClient
 
 # Load config
-with open('config/anomaly_config.yml', 'r') as f:
+with open('anomaly_config.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
 # Load logging config
