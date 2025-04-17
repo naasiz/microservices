@@ -4,5 +4,5 @@ apscheduler
 pykafka
 flask_cors
 PyYAML
-
+setuptools
 
