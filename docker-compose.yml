@@ -140,9 +140,9 @@ services:
     depends_on:
       - kafka
     volumes:
-      - ./config/anomaly_config.yml:/app/app_conf.yml
-      - ./config/log_config.yml:/app/conf_log.yml
-      - ./data/anomaly:/app/data
+      - ./config/log_config.yml:/app/config/log_config.yml
+      - ./config/anomaly_config.yml:/app/anomaly_config.yml
+      - ./data/anomalies.json:/app/anomalies.json
     networks:
       - my_network
 
