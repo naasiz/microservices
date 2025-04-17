@@ -3,10 +3,10 @@ const processingStatsEl = document.getElementById('processingStats');
 const quizEventEl = document.getElementById('quizEvent');
 const questionEventEl = document.getElementById('questionEvent');
 
-const analyzerUrl = 'http://20.163.57.7:8110/stats';
-const processingUrl = 'http://20.163.57.7:8100/stats';
-const quizEventUrl = 'http://20.163.57.7:8110/quiz-event?index=0';
-const questionEventUrl = 'http://20.163.57.7:8110/question-event?index=0';
+const analyzerUrl = '/analyzer/stats';
+const processingUrl = '/processing/stats';
+const quizEventUrl = '/analyzer/quiz-event?index=0';
+const questionEventUrl = '/analyzer/question-event?index=0';
 
 function fetchStats(url, element) {
   fetch(url)
