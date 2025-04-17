@@ -1,0 +1,11 @@
+datastore:
+  filename: anomalies.json
+
+events:
+  hostname: kafka
+  port: 29092
+  topic: events
+
+thresholds:
+  quiz_duration: 45     
+  question_score: 5     

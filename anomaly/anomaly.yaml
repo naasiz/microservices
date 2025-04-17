@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  description: This API provides event anomalies
+  version: "1.0.0"
+  title: Anomaly API
+  contact:
+    email: nzirak@my.bcit.ca
+
+paths:
+  /anomaly:
+    put:
+      summary: Store anomaly data
+      operationId: app.store_anomaly
+      requestBody:
+        description: Anomaly data to store
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Anomaly'
+      responses:
+        '200':
+          description: Successfully stored anomaly
+        '400':
+          description: Invalid input
+
+  /anomalies:
+    get:
+      summary: Return a list of anomalies
+      operationId: app.get_anomalies
+      parameters:
+        - name: event_type
+          in: query
+          description: Filter anomalies by event type
+          required: false
+          schema:
+            type: string
+            enum: [quiz, question]  
+      responses:
+        '200':
+          description: Successfully returned anomalies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Anomaly'
+        '204':
+          description: No anomalies found
+        '400':
+          description: Invalid event type provided
+        '404':
+          description: Anomaly datastore is missing
+
+
+components:
+  schemas:
+    Anomaly:
+      type: object
+      required:
+        - event_id
+        - trace_id
+        - event_type
+        - anomaly_type
+        - description
+      properties:
+        event_id:
+          type: string
+          example: "event-23423"
+        trace_id:
+          type: string
+          example: "trace-abc456"
+        event_type:
+          type: string
+          enum: [quiz, question]
+          example: "quiz"
+        anomaly_type:
+          type: string
+          example: "value out of range"
+        description:
+          type: string
+          example: "The number of questions in this quiz exceeds the allowed limit."

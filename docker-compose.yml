@@ -129,6 +129,24 @@ services:
       - storage
     networks:
       - my_network
+
+  anomaly:
+    restart: always
+    build:
+      context: anomaly
+      dockerfile: Dockerfile
+    ports:
+      - "8120:8120"
+    depends_on:
+      - kafka
+    volumes:
+      - ./config/anomaly_config.yml:/app/app_conf.yml
+      - ./config/log_config.yml:/app/conf_log.yml
+      - ./data/anomaly:/app/data
+    networks:
+      - my_network
+
+
   
 volumes:
   zookeeper_data:

@@ -1,0 +1,8 @@
+connexion[flask,uvicorn,swagger-ui]
+httpx
+apscheduler
+pykafka
+flask_cors
+PyYAML
+
+
